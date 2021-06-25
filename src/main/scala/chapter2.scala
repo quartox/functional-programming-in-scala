@@ -38,6 +38,14 @@ object chapter2 {
     def orderedImplicitOrdered[A](a: A, b: A)(implicit ev$1: A => Ordered[A]): Boolean =
       a <= b
 
+//    def ordered[A <: Ordered[A]](a: A, b: A): Boolean =
+//      a <= b
+//    val aIntOrdered = Array(1, 2, 3)
+//    val sortedOrderedTest = isSorted(aIntOrdered, ordered[Int])
+//    assert(sortedOrderedTest)
+//    def ordered[Ordered[A]](a: Ordered[A], b: Ordered[A]): Boolean =
+//      a <= b
+
     val aInt = Array(1, 2, 3)
     val sortedTest = isSorted(aInt, orderedImplicitOrdering[Int])
     assert(sortedTest)
@@ -50,6 +58,10 @@ object chapter2 {
     val aDbl = Array(1.0d, 0.99d)
     val doubleUnsortedTest = isSorted(aDbl, orderedImplicitOrdered[Double])
     assert(!doubleUnsortedTest)
+
+    val aInt2 = Array(1, 2, 3)
+    val sortedTest2 = isSorted(aInt2, (a: Int, b: Int)=> a <= b)
+    assert(sortedTest2)
   }
   def main(args: Array[String]): Unit = {
     //testFib()
