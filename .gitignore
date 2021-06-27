@@ -22,6 +22,8 @@ project/plugins/project/
 .cache
 .lib/
 
+.bsp/
+
 # More sbt
 project/target/
 project/project/
