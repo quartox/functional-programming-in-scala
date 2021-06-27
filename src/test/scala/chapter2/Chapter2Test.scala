@@ -1,8 +1,8 @@
 package chapter2
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
-class Chapter2Test extends FunSuite {
+class Chapter2Test extends AnyFunSuite {
   test("chapter2.Chapter2.curry") {
     val curried = Chapter2.curry[Int,Double,Boolean]((i: Int, d: Double) => i < d: Boolean)
     val curriedWith1 = curried(1)
