@@ -22,4 +22,13 @@ project/plugins/project/
 .cache
 .lib/
 
-.idea/
+# More sbt
+project/target/
+project/project/
+
+# intellij idea
+*.log
+*.iml
+*.ipr
+*.iws
+.idea
