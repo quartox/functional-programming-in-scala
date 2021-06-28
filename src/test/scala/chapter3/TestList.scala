@@ -57,4 +57,16 @@ class TestList extends AnyFlatSpec {
   it should "return an empty list if given an empty list" in {
     assert(List.init(Nil) === Nil)
   }
+
+  "foldRight" should "construct a list when passed Nil and Cons" in {
+    assert(List.foldRight(List(1,2,3), Nil: List[Int])(Cons(_,_)) === List(1,2,3))
+  }
+
+  "length" should "return the length of the list" in {
+    assert(List.length(List(1,2,3)) === 3)
+    assert(List.length(List(1)) === 1)
+  }
+  it should "return 0 for an empty list" in {
+    assert(List.length(List()) === 0)
+  }
 }
