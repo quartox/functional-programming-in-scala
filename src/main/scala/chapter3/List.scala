@@ -80,13 +80,52 @@ object List { // `List` companion object. Contains functions for creating and wo
     case Cons(h, t) => Cons(h, init(t))
   }
 
-  def length[A](l: List[A]): Int = {
+  def length[A](l: List[A]): Int =
     foldRight(l, 0)((_, len) => len + 1)
+
+
+  def foldLeftGo[A,B](l: List[A], z: B)(f: (B, A) => B): B = {
+    @annotation.tailrec
+    def go(acc: B, as: List[A]): B = as match {
+      case Cons(h, Nil) => f(acc, h)
+      case Cons(h, t) => go(f(acc, h), t)
+    }
+    go(z, l)
   }
 
-  def foldLeft[A,B](l: List[A], z: B)(f: (B, A) => B): B = ???
+  @annotation.tailrec
+  def foldLeft[A,B](l: List[A], z: B)(f: (B, A) => B): B =  l match {
+    case Cons(h, Nil) => f(z, h)
+    case Cons(h: A, t) => foldLeft(t, f(z, h))(f)
+  }
+
+  def sumLeft(ns: List[Int]) =
+    foldLeft(ns, 0)((x,y) => x + y)
+
+  def productLeft(ns: List[Double]) =
+    foldLeft(ns, 1.0)(_ * _) // `_ * _` is more concise notation for `(x,y) => x * y`; see sidebar
+
+  def lengthLeft[A](l: List[A]): Int =
+    foldLeft(l, 0)((len, _) => len + 1)
+
+  def reverse[A](l: List[A]): List[A] =
+    foldRight(l, Nil: List[A])((a, as) => List.append(as, Cons(a, Nil): List[A]))
 
   def map[A,B](l: List[A])(f: A => B): List[B] = ???
+
+//  def foldLeftUsingFoldRight[A,B](l: List[A], z: B)(f: (B, A) => B): B =  l match {
+//    case Nil => z
+//    case Cons(a, as) => f()
+//  }
+
+  def foldLeftUsingFoldRight[A,B](l: List[A], z: B)(f: (B, A) => B): B =
+    foldRight(l, z)((a, b) => f(b, a))
+
+  def foldRightUsingFoldLeft[A,B](l: List[A], z: B)(f: (A, B) => B): B = ???
+//    as match {
+//    case Nil => z
+//    case Cons(x, xs) => f(x, foldRight(xs, z)(f))
+//  }
 
   def main(args: Array[String]): Unit = {
     println(x)

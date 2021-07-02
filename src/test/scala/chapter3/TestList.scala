@@ -69,4 +69,37 @@ class TestList extends AnyFlatSpec {
   it should "return 0 for an empty list" in {
     assert(List.length(List()) === 0)
   }
+
+  "foldLeft" should "construct a list when passed Nil and Cons" in {
+    assert(List.foldLeft(List(1,2,3), 0)(_+_) === 6)
+  }
+
+  "sumLeft" should "sum all numbers" in {
+    assert(List.sumLeft(List(1,2,3)) === 6)
+  }
+
+  "productLeft" should "compute the product of all numbers" in {
+    assert(List.productLeft(List(1.0,0.5)) === 0.5)
+  }
+
+  "lengthLeft" should "compute the length of the list" in {
+    assert(List.lengthLeft(List(1,2,3,4)) === 4)
+  }
+
+  "reverse" should "reverse a list" in {
+    assert(List.reverse(List(1,2,3)) === List(3,2,1))
+  }
+
+  "foldLeftUsingFoldRight" should "do all the things foldLeft can do" in {
+    assert(List.foldLeftUsingFoldRight(List(1,2,3), 0)(_+_) === 6)
+    assert(List.foldLeftUsingFoldRight(List(2.0, 4.0), 1.0)(_*_) === 8.0)
+    assert(List.foldLeftUsingFoldRight(List(1,2,3), 0)((len, _) => len + 1) === 3)
+  }
+
+  "foldRightUsingFoldLeft" should "do all the things foldRight can do" in {
+    assert(List.foldRightUsingFoldLeft(List(1,2,3), 0)(_+_) === 6)
+    assert(List.foldRightUsingFoldLeft(List(2.0, 4.0), 1.0)(_*_) === 8.0)
+    assert(List.foldRightUsingFoldLeft(List(1,2,3), 0)((len, _) => len + 1) === 3)
+    assert(List.foldRightUsingFoldLeft(List(1,2,3), Nil: List[Int])(Cons(_,_)) === List(1,2,3))
+  }
 }
