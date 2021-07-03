@@ -96,10 +96,13 @@ class TestList extends AnyFlatSpec {
     assert(List.foldLeftUsingFoldRight(List(1,2,3), 0)((len, _) => len + 1) === 3)
   }
 
-  "foldRightUsingFoldLeft" should "do all the things foldRight can do" in {
-    assert(List.foldRightUsingFoldLeft(List(1,2,3), 0)(_+_) === 6)
+  "foldRightUsingFoldLeft" should "list creation" in
+    assert(List.foldRightUsingFoldLeft(List(1, 2, 3), Nil: List[Int])(Cons(_, _)) === List(1, 2, 3))
+  it should "handle addition" in
+    assert(List.foldRightUsingFoldLeft(List(1, 2, 3), 0)(_ + _) === 6)
+  it should "handle multiplication" in
     assert(List.foldRightUsingFoldLeft(List(2.0, 4.0), 1.0)(_*_) === 8.0)
+  it should "handle length" in
     assert(List.foldRightUsingFoldLeft(List(1,2,3), 0)((len, _) => len + 1) === 3)
-    assert(List.foldRightUsingFoldLeft(List(1,2,3), Nil: List[Int])(Cons(_,_)) === List(1,2,3))
-  }
+
 }

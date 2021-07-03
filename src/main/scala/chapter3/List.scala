@@ -121,7 +121,10 @@ object List { // `List` companion object. Contains functions for creating and wo
   def foldLeftUsingFoldRight[A,B](l: List[A], z: B)(f: (B, A) => B): B =
     foldRight(l, z)((a, b) => f(b, a))
 
-  def foldRightUsingFoldLeft[A,B](l: List[A], z: B)(f: (A, B) => B): B = ???
+  def foldRightUsingFoldLeft[A,B](l: List[A], z: B)(f: (A, B) => B): B = l match {
+    case Nil => z
+    case Cons(h, t) => foldLeft(t, f(h, z))((b,a) => f(a, b))
+  }
 //    as match {
 //    case Nil => z
 //    case Cons(x, xs) => f(x, foldRight(xs, z)(f))
