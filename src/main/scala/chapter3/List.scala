@@ -111,8 +111,6 @@ object List { // `List` companion object. Contains functions for creating and wo
   def reverse[A](l: List[A]): List[A] =
     foldRight(l, Nil: List[A])((a, as) => List.append(as, Cons(a, Nil): List[A]))
 
-  def map[A,B](l: List[A])(f: A => B): List[B] = ???
-
 //  def foldLeftUsingFoldRight[A,B](l: List[A], z: B)(f: (B, A) => B): B =  l match {
 //    case Nil => z
 //    case Cons(a, as) => f()
@@ -125,10 +123,28 @@ object List { // `List` companion object. Contains functions for creating and wo
     case Nil => z
     case Cons(h, t) => foldLeft(t, f(h, z))((b,a) => f(a, b))
   }
+  // Cons(1,Cons(2,Cons(3,Nil)))
+  // foldLeft(Cons(2,Cons(3,Nil)), Cons(1, Nil))(Cons(_,_))
+  //
+
+//  @annotation.tailrec
+//  def foldLeft[A,B](l: List[A], z: B)(f: (B, A) => B): B =  l match {
+//    case Cons(h, Nil) => f(z, h)
+//    case Cons(h: A, t) => foldLeft(t, f(z, h))(f)
+//  }
+
 //    as match {
 //    case Nil => z
 //    case Cons(x, xs) => f(x, foldRight(xs, z)(f))
 //  }
+
+  def appendUsingFold[A](a1: List[A], a2: List[A]): List[A] =
+    foldRight(a1, a2)(Cons(_,_))
+
+  def concat[A](as: List[List[A]]): List[A] =
+    foldRight(as, Nil: List[A])(List.append)
+
+  def map[A,B](l: List[A])(f: A => B): List[B] = ???
 
   def main(args: Array[String]): Unit = {
     println(x)
